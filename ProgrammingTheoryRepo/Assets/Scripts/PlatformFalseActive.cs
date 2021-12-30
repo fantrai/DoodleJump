@@ -6,6 +6,11 @@ public class PlatformFalseActive : MonoBehaviour
 {
     static public float PosYLastPlatform = -1;
 
+    private void Awake()
+    {
+        PosYLastPlatform = -1;
+    }
+
     private void LateUpdate()
     {
         if (transform.position.y < Player.player.transform.position.y - 10)
