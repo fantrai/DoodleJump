@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     public static GameObject player { get; private set;  }
 
     private const float FORSEJUMP = 225;
-    private const float MOVELEFT = 150;
+    private const float MOVELEFT = 5;
     private const float MAXPOS = 9.5f;
+
     private Rigidbody playerPB;
 
     private void Awake()
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         float input = Input.GetAxis("Horizontal");
-        playerPB.AddForce(Vector3.right * input * MOVELEFT);
+        playerPB.AddForce(Vector3.right * input * MOVELEFT, ForceMode.Impulse);
 
         CheckPosition();
     }
@@ -33,9 +34,8 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform.position.y + 0.2f < transform.position.y)
+        if (other.gameObject.transform.position.y + 0.1f < transform.position.y)
         {
-            Debug.Log("IsTrigger!");
             other.isTrigger = false;
         }
     }
