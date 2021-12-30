@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773075fed0b819342920a8e71e98dbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crack: {fileID: 8300000, guid: 5d4fa2d009a3198419d5fe66d819972c, type: 3}
 --- !u!1 &5787686025113388857
 GameObject:
   m_ObjectHideFlags: 0

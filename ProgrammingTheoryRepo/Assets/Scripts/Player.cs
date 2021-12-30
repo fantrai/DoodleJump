@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
-{
+{ 
     public static GameObject player { get; private set;  }
 
     private const float FORSEJUMP = 225;
@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     private const float MAXPOS = 9.5f;
 
     private Rigidbody playerPB;
+    private AudioSource audioS;
 
     private void Awake()
     {
         player = gameObject;
         playerPB = GetComponent<Rigidbody>();
+        audioS = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     {
         playerPB.velocity = Vector3.zero;
         playerPB.AddForce(Vector3.up * FORSEJUMP, ForceMode.Impulse);
+        audioS.Play();
     }
 
     private void OnTriggerEnter(Collider other)

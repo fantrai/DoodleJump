@@ -7,7 +7,9 @@ using UnityEngine.UI;
 using System.IO;
 
 public class GameManager : MonoBehaviour
-{   
+{
+    static public GameManager gameManager;
+
     [SerializeField]  GameObject platformPrefab;
     [SerializeField]  GameObject crackPlatformPrafab;
     [SerializeField] TextMeshProUGUI gameOverText;
@@ -15,18 +17,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI recordText;
     [SerializeField] Button restartButton;
     [SerializeField] Button outMenuButton;
+    [SerializeField] AudioClip gameOverAudio;
 
     private GameObject[] platforms;
     private float maxPosYPlatform = 2;
     private int score = 0;
     private int recordScore = 0;
     private string recordName = "";
+    private AudioSource audioSource;
 
     private const int COUNT_PLATFORM = 10;
     private const float RANGE_RANDOM_POS = 10;
 
     private void Awake()
     {
+        gameManager = this;
+
+        audioSource = GetComponent<AudioSource>();
         platforms = new GameObject[COUNT_PLATFORM];
         for (int i = 0; i < platforms.Length; i++)
         {
@@ -45,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (Player.player.transform.position.y > score)
         {
             score = Mathf.RoundToInt(Player.player.transform.position.y);
-            scoreText.text = MenuManager.namePlayer + ": " + score;
+            scoreText.text = "Score: " + MenuManager.namePlayer + ": " + score;
         }
 
         if (Player.player.transform.position.y < PlatformFalseActive.PosYLastPlatform)
@@ -89,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        PlayerAudio(gameOverAudio, 0.1f);
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         outMenuButton.gameObject.SetActive(true);
@@ -130,5 +138,10 @@ public class GameManager : MonoBehaviour
     {
         public string name;
         public int score;
+    }
+
+    public void PlayerAudio(AudioClip playAud, float volume = 1)
+    {
+        audioSource.PlayOneShot(playAud, volume);
     }
 }
