@@ -1408,6 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69730d0c04c1d92409b608ee1627c7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorPlayer: {fileID: 2100000, guid: 352275cfd844ba34a8dbad584ad442ad, type: 2}
 --- !u!82 &1274138739
 AudioSource:
   m_ObjectHideFlags: 0

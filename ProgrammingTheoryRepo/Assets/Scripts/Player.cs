@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Player : MonoBehaviour
 { 
     public static GameObject player { get; private set;  }
+
+    [SerializeField] Material colorPlayer;
 
     private const float FORSEJUMP = 225;
     private const float MOVELEFT = 5;
@@ -18,6 +21,13 @@ public class Player : MonoBehaviour
         player = gameObject;
         playerPB = GetComponent<Rigidbody>();
         audioS = GetComponent<AudioSource>();
+
+        if (File.Exists(Application.persistentDataPath + "ColorSettingsPlayer"))
+        {
+            ColorSave save = JsonUtility.FromJson<ColorSave>(File.ReadAllText(Application.persistentDataPath + "ColorSettingsPlayer"));
+            colorPlayer.color = new Color(save.R, save.G, save.B);
+        }
+
     }
 
     private void Update()
@@ -55,3 +65,11 @@ public class Player : MonoBehaviour
         }
     }
 }
+[System.Serializable]
+class ColorSave
+{
+    public float R;
+    public float G;
+    public float B;
+}
+
